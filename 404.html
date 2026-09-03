@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>페이지를 찾을 수 없습니다 — 비철금속 B2B 거래 플랫폼 제안 자료</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="dark">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    --bg:#0c0f11; --bg2:#14181b; --line:#282e33; --line2:#3a4147;
+    --tx:#f4f2ef; --mute:#c3bfb9; --faint:#8b857e;
+    --cu:#a85d2e; --cu-lt:#d6976a; --sig:#d2453a;
+    --f:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,
+        'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    --m:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
+  }
+  html,body{margin:0; padding:0; min-height:100%}
+  body{background:var(--bg); color:var(--mute); font-family:var(--f); font-size:16px;
+    line-height:1.72; word-break:keep-all; display:flex; align-items:center;
+    justify-content:center; padding:32px; -webkit-font-smoothing:antialiased}
+  body::before{content:''; position:fixed; inset:0; pointer-events:none; opacity:.5; z-index:0;
+    background:radial-gradient(circle at 84% 6%,rgba(168,93,46,.19),transparent 44%),
+               radial-gradient(circle at 5% 94%,rgba(210,69,58,.09),transparent 40%)}
+  .box{position:relative; z-index:1; width:100%; max-width:560px}
+  .code{font-family:var(--m); font-size:11px; letter-spacing:.13em; color:var(--cu-lt);
+    display:inline-flex; align-items:center; gap:9px; margin-bottom:18px}
+  .code::before{content:''; width:26px; height:1px; background:var(--cu)}
+  h1{margin:0 0 12px; color:var(--tx); font-size:clamp(24px,5vw,34px); line-height:1.22;
+    letter-spacing:-.04em; font-weight:800}
+  p{margin:0; font-size:14.5px; line-height:1.8}
+  .req{font-family:var(--m); font-size:12px; color:var(--faint); margin-top:14px;
+    word-break:break-all}
+  .links{display:grid; gap:10px; margin-top:26px}
+  a{display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--bg2); border:1px solid var(--line); padding:15px 18px;
+    color:var(--tx); text-decoration:none; font-size:14.5px; font-weight:600;
+    transition:border-color .26s, transform .26s; min-width:0; flex-wrap:wrap}
+  a > b{min-width:0; flex:1 1 auto}
+  a:hover{transform:translateX(3px)}
+  a.home:hover{border-color:var(--line2)}
+  a.doc:hover{border-color:var(--sig)}
+  a.app:hover{border-color:var(--cu)}
+  a span{font-family:var(--m); font-size:11.5px; font-weight:400; color:var(--faint);
+    min-width:0; word-break:break-all; flex:0 1 auto}
+  @media (prefers-reduced-motion:reduce){a{transition-duration:.001s} a:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="box">
+  <span class="code">HTTP 404</span>
+  <h1>요청한 페이지가 없습니다</h1>
+  <p>주소가 잘못 입력되었거나, 자료가 다른 경로로 옮겨졌습니다. 아래에서 원하시는 자료를 열어 주십시오.</p>
+  <p class="req" id="req"></p>
+  <div class="links" id="links"></div>
+</div>
+<script>
+(function () {
+  'use strict';
+  // GitHub Pages(프로젝트 페이지)는 /<repo>/ 하위에 배포되므로 기준 경로를 실행 시점에 판정한다.
+  // ① 첫 경로 조각이 이 저장소 이름이면 프로젝트 페이지
+  // ② 저장소를 이름만 바꾼 경우를 대비해 *.github.io 호스트도 함께 본다
+  // ③ 사용자 페이지·사용자 도메인 루트 배포면 '/'
+  var REPO = '20260902011725';
+  var seg  = location.pathname.split('/').filter(Boolean);
+  var base = '/';
+  if (seg.length) {
+    if (seg[0] === REPO) base = '/' + REPO + '/';
+    else if (/\.github\.io$/i.test(location.hostname)) base = '/' + seg[0] + '/';
+  }
+  var items = [
+    ['home', '자료 첫 화면', base],
+    ['doc', '웹 제안서', base + 'proposal/index.html'],
+    ['app', '서비스 프로토타입', base + 'prototype/index.html']
+  ];
+  var box = document.getElementById('links');
+  items.forEach(function (it) {
+    var a = document.createElement('a');
+    a.className = it[0];
+    a.href = it[2];
+    var b = document.createElement('b');
+    b.textContent = it[1];
+    b.style.fontWeight = '600';
+    var s = document.createElement('span');
+    s.textContent = it[2];
+    a.appendChild(b);
+    a.appendChild(s);
+    box.appendChild(a);
+  });
+  document.getElementById('req').textContent = '요청 경로 · ' + location.pathname;
+})();
+</script>
+</body>
+</html>

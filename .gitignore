@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# 대외 공개 금지 — 내부 산출물
+제안서.md
+요구사항.md
+제안_인사말.md
+*.docx
+*.pptx
+*.xlsx
+*.pdf
+design/
+
+# 작업 잔여물
+.git/_stale/
+.github/_stale/
+*.log
+z_*.png
